@@ -1,0 +1,56 @@
+body {
+    font-family: 'Verdana', sans-serif;
+    font-size:      12pt;
+  }
+
+.list-header {
+    font-family: 'Verdana', sans-serif;
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+.ul-item {
+    list-style-type: disc; /* default */
+    margin-bottom: 6px;
+  }
+
+.collapsible-list {
+    display: none;
+    margin-left: 20px;
+    list-style-type: disc;
+  }
+
+.h1 {
+    font-family: 'Verdana', sans-serif;
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+.h2 {
+    font-family: 'Verdana', sans-serif;
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+
+.table-narrow {
+    border-collapse: collapse;
+    width: 25%;
+    font-family: Verdana, sans-serif;
+  }
+
+.table-wide {
+    border-collapse: collapse;
+    width: 60%;
+    font-family: Verdana, sans-serif;
+  }
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: left;
+  }
+
+  thead {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }

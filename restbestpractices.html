@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+    <head>
+        <title>Rest Best Practices</title>
+        <link rel="stylesheet" href="styles.css">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <h1 id="rest-best-practices">REST Best Practices</h1>
+        <p>When designing and working with RESTful APIs, following best practices ensures your endpoints are intuitive, scalable, secure, and maintainable. Here are some key principles and good practices:
+        </p>
+        <ol>
+            <li class="list-header">Use Nouns for Resource URIs</li>
+                <ul class="collapsible-list">
+                    <li class ="ul-item">URIs should represent resources, not actions</li>
+                    <li class ="ul-item">Good: GET /users/123</li>
+                    <li class ="ul-item">Bad: GET /getUserById/123</li>
+                </ul>
+            <li class="list-header">Use HTTP Methods Appropriately</li>
+                <ul class="collapsible-list">
+                    <li class ="ul-item">GET – Retrieve data</li>
+                    <li class ="ul-item">POST – Create a new resource</li>
+                    <li class ="ul-item">PUT – Update an existing resource (replace)</li>
+                    <li class ="ul-item">PATCH – Partially update a resource</li>
+                    <li class ="ul-item">DELETE – Remove a resource</li>
+                </ul>
+            <li class="list-header">Use Plural Nouns</li>
+                <ul class="collapsible-list">
+                    <li class ="ul-item">Keep naming consistent and plural for collections</li>
+                    <li class ="ul-item">Example: /users, /products, /orders</li>
+                </ul>
+            <li class="list-header">Use Status Codes Meaningfully</li>
+                <ul class="collapsible-list">
+                    <li class ="ul-item">200 OK – Successful GET, PUT, or DELETE</li>
+                    <li class ="ul-item">201 Created – Successful POST</li>
+                    <li class ="ul-item">204 No Content – Successful DELETE with no return</li>
+                    <li class ="ul-item">400 Bad Request – Invalid input</li>
+                    <li class ="ul-item">401 Unauthorized – Authentication required</li>
+                    <li class ="ul-item">403 Forbidden – Authenticated but not allowed</li>
+                    <li class ="ul-item">404 Not Found – Resource doesn’t exist</li>
+                    <li class ="ul-item">429 Too Many Requests – Client error</li>
+                    <li class ="ul-item">500 Internal Server Error – Server-side issue</li>
+                    <li class ="ul-item">300 Moved Permanently – Redirection status</li>
+                </ul>
+            <li class="list-header">Version Your API</li>
+                <ul class="collapsible-list">
+                    <li class ="ul-item">Use URI versioning: /api/v1/users</li>
+                    <li class ="ul-item">Helps manage breaking changes over time</li>
+                </ul>
+            <li class="list-header">Use Query Parameters for Filtering, Sorting, and Pagination</li>
+                <ul class="collapsible-list">
+                    <li class ="ul-item">Example: /products?category=books&sort=price_asc&page=2&limit=20</li>
+                </ul>
+            <li class="list-header">Secure Your API</li>
+                <ul class="collapsible-list">
+                    <li class ="ul-item">Use HTTPS</li>
+                    <li class ="ul-item">Implement authentication (e.g., JWT, OAuth2)</li>
+                    <li class ="ul-item">Validate and sanitize inputs to prevent injection attacks</li>
+                    <li class ="ul-item">Rate limit to prevent abuse</li>
+                </ul>
+            <li class="list-header">Request & Response Format</li>
+                <ul class="collapsible-list">
+                    <li class ="ul-item">Use JSON as the standard format</li>
+                    <li class ="ul-item">Include metadata (e.g., pagination info) in responses</li>
+                    <li class ="ul-item">Use consistent field naming (e.g., camelCase or snake_case, but be consistent)</li>
+                </ul>
+            <li class="list-header">Documentation and Testing</li>
+                <ul class="collapsible-list">
+                    <li class ="ul-item">Use tools like Swagger/OpenAPI for documentation</li>
+                    <li class ="ul-item">Provide examples and test endpoints</li>
+                    <li class ="ul-item">Ensure your API is covered with automated tests</li>
+                </ul>
+        </ol>
+        <h2>Examples</h2>
+        <table class="table-wide">
+            <thead>
+              <tr>
+                <th>HTTP Method</th>
+                <th>API</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>GET</td>
+                <td>/api/v1/admin/software/isos</td>
+                <td>List all software ISO Images and their details</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/api/v1/admin/software/isos/{software_id}</td>
+                <td>Get details of a specific ISO image</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/api/v1/admin/software/isos/downloadHistory</td>
+                <td>List all download histories for all ISO images</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/api/v1/admin/software/isos/{software_id}/downloadHistory</td>
+                <td>List specific ISO download history</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/api/v1/software/isos/{software_id}/download</td>
+                <td>Download a specific ISO image</td>
+              </tr>
+            </tbody>
+        </table>
+        <h1>What is an Idempotent API?</h1>
+        <p>An idempotent HTTP method is a method that can be invoked many times without different outcomes.<br>
+            It should not matter if the method has been called only once, or ten times over. The result should always be the same.</p>
+        <h1>Idempotency with HTTP Methods</h1>
+        <p>If we follow the REST principles in designing our APIs, we will have automatically idempotent REST APIs for: GET, PUT, DELETE, HEAD, OPTIONS, and TRACE methods. <br />
+             Only POST and PATCH APIs will not be idempotent.</p>
+        <ul>
+            <li>POST and PATCH are <b>NOT</b> idempotent</li>
+            <li>GET, PUT, DELETE, HEAD, OPTIONS and TRACE are idempotent</li>
+        </ul>
+        <table class="table-narrow">
+            <thead>
+              <tr>
+                <th>HTTP Method</th>
+                <th>Idempotent</th>
+                <th>Safe</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>GET</td>
+                <td style="color: green;">&#x2705;</td>
+                <td style="color: green;">&#x2705;</td>
+              </tr>
+              <tr>
+                <td>HEAD</td>
+                <td style="color: green;">&#x2705;</td>
+                <td style="color: green;">&#x2705;</td>
+              </tr>
+              <tr>
+                <td>PUT</td>
+                <td style="color: green;">&#x2705;</td>
+                <td style="color: red;">&#x274C;</td>
+              </tr>
+              <tr>
+                <td>DELETE</td>
+                <td style="color: green;">&#x2705;</td>
+                <td style="color: red;">&#x274C;</td>
+              </tr>
+              <tr>
+                <td>POST</td>
+                <td style="color: red;">&#x274C;</td>
+                <td style="color: red;">&#x274C;</td>
+              </tr>
+              <tr>
+                <td>PATCH</td>
+                <td style="color: red;">&#x274C;</td>
+                <td style="color: red;">&#x274C;</td>
+              </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
