@@ -93,31 +93,48 @@
               </tr>
               <tr>
                 <td>GET</td>
-                <td>/api/v1/admin/software/isos/{software_id}</td>
+                <td>/api/v1/admin/software/isos/{id}</td>
                 <td>Get details of a specific ISO image</td>
               </tr>
               <tr>
                 <td>PUT</td>
-                <td>/api/v1/admin/software/isos/{software_id}</td>
+                <td>/api/v1/admin/software/isos/{id}</td>
                 <td>Update details of a specific ISO image</td>
               </tr>
               <tr>
-                <td>GET</td>
-                <td>/api/v1/admin/software/isos/downloadHistory</td>
-                <td>List all download histories for all ISO images</td>
+                <td>DELETE</td>
+                <td>/api/v1/admin/software/isos/{id}</td>
+                <td>Deletes a specific ISO image</td>
               </tr>
               <tr>
                 <td>GET</td>
-                <td>/api/v1/admin/software/isos/{software_id}/downloadHistory</td>
-                <td>List specific ISO download history</td>
+                <td>/api/v1/admin/software/isos/downloads</td>
+                <td>List all download histories for all ISO images*</td>
               </tr>
               <tr>
                 <td>GET</td>
-                <td>/api/v1/software/isos/{software_id}/download</td>
-                <td>Download a specific ISO image</td>
+                <td>/api/v1/admin/software/isos/{id}/downloads</td>
+                <td>List specific ISO download history**</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/api/v1/software/isos/{id}/file</td>
+                <td>Download a specific ISO image**</td>
               </tr>
             </tbody>
         </table>
+        <p>* So while /isos/downloads isn't a textbook sub-resource (because it's not tied to a specific ISO), it's a reasonable compromise if:
+          <ul>
+            <li>You want to make the scope obvious</li>
+            <li>You don't support downloads for other resource types</li>
+            <li>You're not exposing a global /downloads endpoint</li>
+        </ul>
+        If you want to keep RESTful structure and clarity, consider:
+        GET /downloads?resource=iso
+        </p>
+
+        <p>** This structure is more idiomatic in REST because it treats <code class="code-block">file / downloads</code> as a <b>sub-resource</b> of the ISO identified by <code class="code-block">{id}</code>. <br />
+          You're essentially saying: <i>"Give me the file associated with this specific ISO."</i></p>
         <h1>What is an Idempotent API?</h1>
         <p>An idempotent HTTP method is a method that can be invoked many times without different outcomes.<br>
             It should not matter if the method has been called only once, or ten times over. The result should always be the same.</p>

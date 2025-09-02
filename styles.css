@@ -44,6 +44,12 @@ body {
     font-family: Verdana, sans-serif;
   }
 
+.code-block {
+  background-color: #DDDDDD;
+  padding: 1px;
+  font-family: monospace;
+}
+
 th, td {
     border: 1px solid #ccc;
     padding: 8px 12px;
