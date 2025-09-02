@@ -7,8 +7,7 @@
     </head>
     <body>
         <h1 id="rest-best-practices">REST Best Practices</h1>
-        <p>When designing and working with RESTful APIs, following best practices ensures your endpoints are intuitive, scalable, secure, and maintainable. Here are some key principles and good practices:
-        </p>
+        <p>When designing and working with RESTful APIs, following best practices ensures your endpoints are intuitive, scalable, secure, and maintainable. Here are some key principles and good practices:</p>
         <ol>
             <li class="list-header">Use Nouns for Resource URIs</li>
                 <ul class="collapsible-list">
@@ -128,19 +127,21 @@
             <li>You want to make the scope obvious</li>
             <li>You don't support downloads for other resource types</li>
             <li>You're not exposing a global /downloads endpoint</li>
-        </ul>
+          </ul>
         If you want to keep RESTful structure and clarity, consider:
         GET /downloads?resource=iso
         </p>
 
         <p>** This structure is more idiomatic in REST because it treats <code class="code-block">file / downloads</code> as a <b>sub-resource</b> of the ISO identified by <code class="code-block">{id}</code>. <br />
-          You're essentially saying: <i>"Give me the file associated with this specific ISO."</i></p>
+        You're essentially saying: <i>"Give me the file associated with this specific ISO."</i>
+        </p>
         <h1>What is an Idempotent API?</h1>
         <p>An idempotent HTTP method is a method that can be invoked many times without different outcomes.<br>
-            It should not matter if the method has been called only once, or ten times over. The result should always be the same.</p>
+        It should not matter if the method has been called only once, or ten times over. The result should always be the same.
+        </p>
         <h1>Idempotency with HTTP Methods</h1>
         <p>If we follow the REST principles in designing our APIs, we will have automatically idempotent REST APIs for: GET, PUT, DELETE, HEAD, OPTIONS, and TRACE methods. <br />
-             Only POST and PATCH APIs will not be idempotent.</p>
+        Only POST and PATCH APIs will not be idempotent.</p>
         <ul>
             <li>POST and PATCH are <b>NOT</b> idempotent</li>
             <li>GET, PUT, DELETE, HEAD, OPTIONS and TRACE are idempotent</li>
@@ -186,5 +187,17 @@
               </tr>
             </tbody>
         </table>
+        <h1>RESTful vs RPC Tradeoff</h1>
+        <h2>Restore/Backup Endpoints: RPC-style Triggers</h2>
+        <code class="code-block">
+          POST /devices/{device_name}/restore<br />
+          POST /devices/{device_name}/backup<br />
+        </code>
+        <ul>
+          <li>These endpoints initiate an action — they don't return a resource, they trigger behavior.</li>
+          <li>The payload contains instructions <code class="code-block">(backupName, metadata)</code> for what the device should do.</li>
+          <li>There's no persistent resource created (like a restore job or backup object), so you're not modeling a new entity — just invoking a command.</li>
+          <li>This is RPC over HTTP, and it's totally valid when the operation is transient and immediate.</li>
+        </ul>
     </body>
 </html>
