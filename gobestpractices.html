@@ -11,7 +11,8 @@
         <h1 id="go-best-practices">Go Best Practices</h1>
         <ul>
             <li><b>Comma ok/error Idiom</b><br>
-                Check for <b>NOT</b> ok and deal with the error.<br>
+                Prefer to return error in functions, and
+                check for <b>NOT</b> ok and deal with the error.<br>
                 <br>
             </li>
             <li><b>Functions</b><br>
@@ -22,8 +23,13 @@
                 Put constants into global space.<br>
                 <br>
             </li>
+            <li><b>Sets</b><br>
+                Use anonymous structs for sets: <code>map[int]struct{}</code>.<br>
+                <br>
+            </li>
             <li><b>Strings</b><br>
-                Use string builder to create complex strings (more efficient).<br>
+                Use strings.Builder to create complex strings (more efficient).<br>
+                Use strings.Fields to remove all white space including leading & trailing.<br>
                 <br>
             </li>
             <li><b>Slices</b><br>
