@@ -21,7 +21,7 @@
             </li>
             <li><b>If - Else</b><br>
                 It's idiomatic to return early and <b>avoid nesting</b>.<br />
-                So if your if block ends with a return, continue, or break, you don't need else.<br />
+                If a block ends with return, continue, or break, you don't need an else.<br />
                 <br>
             </li>
             <li><b>Constants</b><br>
@@ -39,6 +39,7 @@
             </li>
             <li><b>Slices</b><br>
                 Prefer append when using slices.<br>
+                If the size of the slice is know or can be estimated, use make to create the slice using a capacity hint.<br>
                 <br>
             </li>
             <li><b>Switch</b>
