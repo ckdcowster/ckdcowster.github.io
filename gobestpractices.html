@@ -37,6 +37,13 @@
                 Use strings.Fields to remove all white space including leading & trailing.<br>
                 <br>
             </li>
+            <li><b>Pointers</b><br>
+                Use pointers when you need to modify the value of a variable in a function.<br>
+                Avoids subtle bugs caused by reused loop variables in closures.<br>
+                Use & to get the address of a variable and * to dereference a pointer.<br>
+                <code>child := &Node{ID: r.ID}</code><br>
+                <br>
+            </li>
             <li><b>Slices</b><br>
                 Prefer append when using slices.<br>
                 If the size of the slice is know or can be estimated, use make to create the slice using a capacity hint.<br>
