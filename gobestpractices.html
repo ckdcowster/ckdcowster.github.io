@@ -38,10 +38,11 @@
                 <br>
             </li>
             <li><b>Pointers</b><br>
-                Use pointers when you need to modify the value of a variable in a function.<br>
-                Avoids subtle bugs caused by reused loop variables in closures.<br>
-                Use & to get the address of a variable and * to dereference a pointer.<br>
-                <code>child := &Node{ID: r.ID}</code><br>
+                You need to modify the caller's data.<br>
+                The value is large or expensive to copy.<br>
+                You’re building reference‑based structures i.e., trees, graphs, linked lists, caches, and other node-based designs.<br>
+                <b>Avoid:</b>Creating a value and then taking its address inside loops.<br/>
+                <b>Prefer:</b>Prefer: allocating the pointer directly. e.g., <code style="font-size:11pt; background-color:lightgray">child := &Node{ID: r.ID}</code><br>
                 <br>
             </li>
             <li><b>Slices</b><br>
