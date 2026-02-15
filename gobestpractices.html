@@ -46,8 +46,10 @@
                 <br>
             </li>
             <li><b>Slices</b><br>
-                Prefer append when using slices.<br>
-                If the size of the slice is know or can be estimated, use make to create the slice using a capacity hint.<br>
+                Prefer append when the final size is unknown or the slice grows dynamically.<br>
+                If the final size is known (or can be tightly estimated), use make with a length or capacity hint.<br>
+                Prefer indexing when the slice length is known and fixed.<br>
+                copy() copies up to the length of the destination slice, not its capacity.<br>
                 <br>
             </li>
             <li><b>Switch</b>
