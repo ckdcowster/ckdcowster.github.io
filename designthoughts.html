@@ -3,163 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <title>Design Thoughts</title>
-    <style>
-        body {
-            font-family: Verdana, sans-serif;
-            font-size: 12pt;
-            line-height: 1.5;
-            margin: 40px;
-        }
-        nav#toc {
-            margin-bottom: 2em;
-        }
-        nav#toc h2 {
-            margin-bottom: 0.5em;
-        }
-        section {
-            margin-bottom: 2em;
-        }
-        section h2 {
-            margin-bottom: 0.4em;
-        }
-        ul li {
-            margin-bottom: 0.4em;
-        }
-    </style>
+    <link rel="stylesheet" href="global.css">
+    <script src="global.js" defer></script>
 </head>
 
 <body>
 
+<button class="theme-toggle">Toggle Theme</button>
+
+<aside class="sidebar">
+    <h2>Best Practices</h2>
+    <a href="gobestpractices.html">Go Best Practices</a>
+    <a href="designthoughts.html">Design Thoughts</a>
+    <a href="restbestpractices.html">REST Best Practices</a>
+</aside>
+
+<main>
+
 <h1>Design Thoughts</h1>
 
-<nav id="toc">
-    <h2>Contents</h2>
-    <ul>
-        <li><a href="#dry">DRY</a></li>
-        <li><a href="#kiss">KISS</a></li>
-        <li><a href="#understandable">Easy to Understand</a></li>
-        <li><a href="#soc">Separation of Concerns</a></li>
-        <li><a href="#cohesion-coupling">High Cohesion & Low Coupling</a></li>
-        <li><a href="#packages">Package-Oriented Design</a></li>
-        <li><a href="#minimal-api">Minimal Public APIs</a></li>
-        <li><a href="#encapsulation">Encapsulation</a></li>
-        <li><a href="#composition">Composition Over Inheritance</a></li>
-        <li><a href="#di">Dependency Injection</a></li>
-        <li><a href="#global-state">Avoid Global State</a></li>
-        <li><a href="#errors">Idiomatic Error Handling</a></li>
-        <li><a href="#scope">Narrow Scope</a></li>
-        <li><a href="#efficient">Efficient Code</a></li>
-    </ul>
-</nav>
+<ol>
 
-<section id="dry">
-    <h2>DRY (Don't Repeat Yourself)</h2>
-    <ul>
-        <li>Avoid code duplication.</li>
-        <li>Reuse code through functions, classes, or modules to improve maintainability.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">DRY (Don't Repeat Yourself)</div>
+        <ul class="collapsible-list">
+            <li>Avoid code duplication.</li>
+            <li>Reuse code through functions, classes, or modules.</li>
+        </ul>
+    </li>
 
-<section id="kiss">
-    <h2>KISS (Keep It Simple, Stupid)</h2>
-    <ul>
-        <li>Design systems as simply as possible.</li>
-        <li>Avoid unnecessary complexity.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">KISS (Keep It Simple, Stupid)</div>
+        <ul class="collapsible-list">
+            <li>Design systems as simply as possible.</li>
+            <li>Avoid unnecessary complexity.</li>
+        </ul>
+    </li>
 
-<section id="understandable">
-    <h2>Easy to Understand</h2>
-    <ul>
-        <li>Clear names for everything.</li>
-        <li>Comments explain why, not what.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Easy to Understand</div>
+        <ul class="collapsible-list">
+            <li>Use clear names.</li>
+            <li>Write comments that explain why, not what.</li>
+        </ul>
+    </li>
 
-<section id="soc">
-    <h2>Separation of Concerns</h2>
-    <ul>
-        <li>Divide a program into distinct sections, each addressing a separate concern or functionality.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Separation of Concerns</div>
+        <ul class="collapsible-list">
+            <li>Divide a program into distinct functional areas.</li>
+        </ul>
+    </li>
 
-<section id="cohesion-coupling">
-    <h2>High Cohesion and Low Coupling</h2>
-    <ul>
-        <li>High Cohesion: Related functions are kept together.</li>
-        <li>Low Coupling: Components are independent and changes in one don't heavily affect others.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">High Cohesion & Low Coupling</div>
+        <ul class="collapsible-list">
+            <li>Group related functionality together.</li>
+            <li>Minimise dependencies between components.</li>
+        </ul>
+    </li>
 
-<section id="packages">
-    <h2>Package-Oriented Design</h2>
-    <ul>
-        <li>Organize code into small, cohesive packages.</li>
-        <li>Each package should have a clear purpose and minimal public API.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Package-Oriented Design</div>
+        <ul class="collapsible-list">
+            <li>Organise code into small, cohesive packages.</li>
+            <li>Keep public APIs minimal.</li>
+        </ul>
+    </li>
 
-<section id="minimal-api">
-    <h2>Minimalism in Public APIs</h2>
-    <ul>
-        <li>Define small, focused interfaces.</li>
-        <li>Keep exported functions, types, and variables to a minimum.</li>
-        <li>Use lowercase names for unexported identifiers.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Minimalism in Public APIs</div>
+        <ul class="collapsible-list">
+            <li>Define small, focused interfaces.</li>
+            <li>Export only what is necessary.</li>
+        </ul>
+    </li>
 
-<section id="encapsulation">
-    <h2>Encapsulation</h2>
-    <ul>
-        <li>Hide internal state and require interaction through methods.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Encapsulation</div>
+        <ul class="collapsible-list">
+            <li>Hide internal state behind methods.</li>
+        </ul>
+    </li>
 
-<section id="composition">
-    <h2>Composition Over Inheritance</h2>
-    <ul>
-        <li>Favour composing objects with desired behaviour over inheriting from a base class.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Composition Over Inheritance</div>
+        <ul class="collapsible-list">
+            <li>Prefer composing behaviour over subclassing.</li>
+        </ul>
+    </li>
 
-<section id="di">
-    <h2>Dependency Injection</h2>
-    <ul>
-        <li>Dependencies are provided externally rather than created internally.</li>
-        <li>Improves flexibility, testability, and maintainability.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Dependency Injection</div>
+        <ul class="collapsible-list">
+            <li>Provide dependencies externally.</li>
+            <li>Improves testability and flexibility.</li>
+        </ul>
+    </li>
 
-<section id="global-state">
-    <h2>Avoid Global State</h2>
-    <ul>
-        <li>Prefer passing dependencies explicitly rather than relying on global variables.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Avoid Global State</div>
+        <ul class="collapsible-list">
+            <li>Pass dependencies explicitly.</li>
+        </ul>
+    </li>
 
-<section id="errors">
-    <h2>Idiomatic Error Handling</h2>
-    <ul>
-        <li>Handle error first.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Idiomatic Error Handling</div>
+        <ul class="collapsible-list">
+            <li>Handle errors first.</li>
+        </ul>
+    </li>
 
-<section id="scope">
-    <h2>Narrow Scope</h2>
-    <ul>
-        <li>Short variable lifetimes improve optimization.</li>
-        <li>Reduces cognitive load for developers.</li>
-        <li>Reduces risk of shadowing.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Narrow Scope</div>
+        <ul class="collapsible-list">
+            <li>Short variable lifetimes improve optimisation.</li>
+            <li>Reduces cognitive load.</li>
+            <li>Reduces shadowing risk.</li>
+        </ul>
+    </li>
 
-<section id="efficient">
-    <h2>Efficient Code</h2>
-    <ul>
-        <li>Avoid making multiple temporary copies of variables.</li>
-        <li>Prefer passing by reference/pointer for large data.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Efficient Code</div>
+        <ul class="collapsible-list">
+            <li>Avoid unnecessary copies.</li>
+            <li>Pass large data by reference.</li>
+        </ul>
+    </li>
 
+</ol>
+
+</main>
 </body>
 </html>

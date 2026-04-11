@@ -1,203 +1,271 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html>
-    <head>
-        <title>Rest Best Practices</title>
-        <link rel="stylesheet" href="styles.css">
-        <script src="script.js" defer></script>
-    </head>
-    <body>
-        <h1 id="rest-best-practices">REST Best Practices</h1>
-        <p>When designing and working with RESTful APIs, following best practices ensures your endpoints are intuitive, scalable, secure, and maintainable. Here are some key principles and good practices:</p>
-        <ol>
-            <li class="list-header">Use Nouns for Resource URIs</li>
-                <ul class="collapsible-list">
-                    <li class ="ul-item">URIs should represent resources, not actions</li>
-                    <li class ="ul-item">Good: GET /users/123</li>
-                    <li class ="ul-item">Bad: GET /getUserById/123</li>
-                </ul>
-            <li class="list-header">Use HTTP Methods Appropriately</li>
-                <ul class="collapsible-list">
-                    <li class ="ul-item">GET – Retrieve data</li>
-                    <li class ="ul-item">POST – Create a new resource</li>
-                    <li class ="ul-item">PUT – Update an existing resource (replace)</li>
-                    <li class ="ul-item">PATCH – Partially update a resource</li>
-                    <li class ="ul-item">DELETE – Remove a resource</li>
-                </ul>
-            <li class="list-header">Use Plural Nouns</li>
-                <ul class="collapsible-list">
-                    <li class ="ul-item">Keep naming consistent and plural for collections</li>
-                    <li class ="ul-item">Example: /users, /products, /orders</li>
-                </ul>
-            <li class="list-header">Use Status Codes Meaningfully</li>
-                <ul class="collapsible-list">
-                    <li class ="ul-item">200 OK – Successful GET, PUT, or DELETE</li>
-                    <li class ="ul-item">201 Created – Successful POST</li>
-                    <li class ="ul-item">204 No Content – Successful DELETE with no return</li>
-                    <li class ="ul-item">400 Bad Request – Invalid input</li>
-                    <li class ="ul-item">401 Unauthorized – Authentication required</li>
-                    <li class ="ul-item">403 Forbidden – Authenticated but not allowed</li>
-                    <li class ="ul-item">404 Not Found – Resource doesn’t exist</li>
-                    <li class ="ul-item">429 Too Many Requests – Client error</li>
-                    <li class ="ul-item">500 Internal Server Error – Server-side issue</li>
-                    <li class ="ul-item">300 Moved Permanently – Redirection status</li>
-                </ul>
-            <li class="list-header">Version Your API</li>
-                <ul class="collapsible-list">
-                    <li class ="ul-item">Use URI versioning: /api/v1/users</li>
-                    <li class ="ul-item">Helps manage breaking changes over time</li>
-                </ul>
-            <li class="list-header">Use Query Parameters for Filtering, Sorting, and Pagination</li>
-                <ul class="collapsible-list">
-                    <li class ="ul-item">Example: /products?category=books&sort=price_asc&page=2&limit=20</li>
-                </ul>
-            <li class="list-header">Secure Your API</li>
-                <ul class="collapsible-list">
-                    <li class ="ul-item">Use HTTPS</li>
-                    <li class ="ul-item">Implement authentication (e.g., JWT, OAuth2)</li>
-                    <li class ="ul-item">Validate and sanitize inputs to prevent injection attacks</li>
-                    <li class ="ul-item">Rate limit to prevent abuse</li>
-                </ul>
-            <li class="list-header">Request & Response Format</li>
-                <ul class="collapsible-list">
-                    <li class ="ul-item">Use JSON as the standard format</li>
-                    <li class ="ul-item">Include metadata (e.g., pagination info) in responses</li>
-                    <li class ="ul-item">Use consistent field naming (e.g., camelCase or snake_case, but be consistent)</li>
-                </ul>
-            <li class="list-header">Documentation and Testing</li>
-                <ul class="collapsible-list">
-                    <li class ="ul-item">Use tools like Swagger/OpenAPI for documentation</li>
-                    <li class ="ul-item">Provide examples and test endpoints</li>
-                    <li class ="ul-item">Ensure your API is covered with automated tests</li>
-                </ul>
-        </ol>
-        <h2>Examples</h2>
-        <table class="table-wide">
-            <thead>
-              <tr>
-                <th>HTTP Method</th>
-                <th>API</th>
-                <th>Result</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>GET</td>
-                <td>/api/v1/admin/software/isos</td>
-                <td>List all software ISO Images and their details</td>
-              </tr>
-              <tr>
-                <td>POST</td>
-                <td>/api/v1/admin/software/isos</td>
-                <td>Create a new ISO image</td>
-              </tr>
-              <tr>
-                <td>GET</td>
-                <td>/api/v1/admin/software/isos/{id}</td>
-                <td>Get details of a specific ISO image</td>
-              </tr>
-              <tr>
-                <td>PUT</td>
-                <td>/api/v1/admin/software/isos/{id}</td>
-                <td>Update details of a specific ISO image</td>
-              </tr>
-              <tr>
-                <td>DELETE</td>
-                <td>/api/v1/admin/software/isos/{id}</td>
-                <td>Deletes a specific ISO image</td>
-              </tr>
-              <tr>
-                <td>GET</td>
-                <td>/api/v1/admin/software/isos/downloads</td>
-                <td>List all download histories for all ISO images*</td>
-              </tr>
-              <tr>
-                <td>GET</td>
-                <td>/api/v1/admin/software/isos/{id}/downloads</td>
-                <td>List specific ISO download history**</td>
-              </tr>
-              <tr>
-                <td>GET</td>
-                <td>/api/v1/software/isos/{id}/file</td>
-                <td>Download a specific ISO image**</td>
-              </tr>
-            </tbody>
-        </table>
-        <p>* So while /isos/downloads isn't a textbook sub-resource (because it's not tied to a specific ISO), it's a reasonable compromise if:
-          <ul>
-            <li>You want to make the scope obvious</li>
-            <li>You don't support downloads for other resource types</li>
-            <li>You're not exposing a global /downloads endpoint</li>
-          </ul>
-        If you want to keep RESTful structure and clarity, consider:
-        GET /downloads?resource=iso
-        </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>REST Best Practices</title>
+    <link rel="stylesheet" href="global.css">
+    <script src="global.js" defer></script>
+</head>
 
-        <p>** This structure is more idiomatic in REST because it treats <code class="code-block">file / downloads</code> as a <b>sub-resource</b> of the ISO identified by <code class="code-block">{id}</code>. <br />
-        You're essentially saying: <i>"Give me the file associated with this specific ISO."</i>
-        </p>
-        <h1>What is an Idempotent API?</h1>
-        <p>An idempotent HTTP method is a method that can be invoked many times without different outcomes.<br>
-        It should not matter if the method has been called only once, or ten times over. The result should always be the same.
-        </p>
-        <h1>Idempotency with HTTP Methods</h1>
-        <p>If we follow the REST principles in designing our APIs, we will have automatically idempotent REST APIs for: GET, PUT, DELETE, HEAD, OPTIONS, and TRACE methods. <br />
-        Only POST and PATCH APIs will not be idempotent.</p>
-        <ul>
-            <li>POST and PATCH are <b>NOT</b> idempotent</li>
-            <li>GET, PUT, DELETE, HEAD, OPTIONS and TRACE are idempotent</li>
+<body>
+
+<button class="theme-toggle">Toggle Theme</button>
+
+<aside class="sidebar">
+    <h2>Best Practices</h2>
+    <a href="gobestpractices.html">Go Best Practices</a>
+    <a href="designthoughts.html">Design Thoughts</a>
+    <a href="restbestpractices.html">REST Best Practices</a>
+</aside>
+
+<main>
+
+<h1 id="rest-best-practices">REST Best Practices</h1>
+
+<p>
+    When designing and working with RESTful APIs, following best practices ensures your endpoints are intuitive,
+    scalable, secure, and maintainable. Here are some key principles and good practices:
+</p>
+
+<ol>
+
+    <li>
+        <div class="list-header">Use Nouns for Resource URIs</div>
+        <ul class="collapsible-list">
+            <li>URIs should represent resources, not actions</li>
+            <li>Good: GET /users/123</li>
+            <li>Bad: GET /getUserById/123</li>
         </ul>
-        <table class="table-narrow">
-            <thead>
-              <tr>
-                <th>HTTP Method</th>
-                <th>Idempotent</th>
-                <th>Safe</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>GET</td>
-                <td style="color: green;">&#x2705;</td>
-                <td style="color: green;">&#x2705;</td>
-              </tr>
-              <tr>
-                <td>HEAD</td>
-                <td style="color: green;">&#x2705;</td>
-                <td style="color: green;">&#x2705;</td>
-              </tr>
-              <tr>
-                <td>PUT</td>
-                <td style="color: green;">&#x2705;</td>
-                <td style="color: red;">&#x274C;</td>
-              </tr>
-              <tr>
-                <td>DELETE</td>
-                <td style="color: green;">&#x2705;</td>
-                <td style="color: red;">&#x274C;</td>
-              </tr>
-              <tr>
-                <td>POST</td>
-                <td style="color: red;">&#x274C;</td>
-                <td style="color: red;">&#x274C;</td>
-              </tr>
-              <tr>
-                <td>PATCH</td>
-                <td style="color: red;">&#x274C;</td>
-                <td style="color: red;">&#x274C;</td>
-              </tr>
-            </tbody>
-        </table>
-        <h1>RESTful vs RPC Tradeoff</h1>
-        <h2>Restore/Backup Endpoints: RPC-style Triggers</h2>
-        <code class="code-block">
-          POST /devices/{device_name}/restore<br />
-          POST /devices/{device_name}/backup<br />
-        </code>
-        <ul>
-          <li>These endpoints initiate an action — they don't return a resource, they trigger behavior.</li>
-          <li>The payload contains instructions <code class="code-block">(backupName, metadata)</code> for what the device should do.</li>
-          <li>There's no persistent resource created (like a restore job or backup object), so you're not modeling a new entity — just invoking a command.</li>
-          <li>This is RPC over HTTP, and it's totally valid when the operation is transient and immediate.</li>
+    </li>
+
+    <li>
+        <div class="list-header">Use HTTP Methods Appropriately</div>
+        <ul class="collapsible-list">
+            <li>GET – Retrieve data</li>
+            <li>POST – Create a new resource</li>
+            <li>PUT – Update an existing resource (replace)</li>
+            <li>PATCH – Partially update a resource</li>
+            <li>DELETE – Remove a resource</li>
         </ul>
-    </body>
+    </li>
+
+    <li>
+        <div class="list-header">Use Plural Nouns</div>
+        <ul class="collapsible-list">
+            <li>Keep naming consistent and plural for collections</li>
+            <li>Example: /users, /products, /orders</li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Use Status Codes Meaningfully</div>
+        <ul class="collapsible-list">
+            <li>200 OK – Successful GET, PUT, or DELETE</li>
+            <li>201 Created – Successful POST</li>
+            <li>204 No Content – Successful DELETE with no return</li>
+            <li>400 Bad Request – Invalid input</li>
+            <li>401 Unauthorized – Authentication required</li>
+            <li>403 Forbidden – Authenticated but not allowed</li>
+            <li>404 Not Found – Resource doesn’t exist</li>
+            <li>429 Too Many Requests – Client error</li>
+            <li>500 Internal Server Error – Server-side issue</li>
+            <li>300 Moved Permanently – Redirection status</li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Version Your API</div>
+        <ul class="collapsible-list">
+            <li>Use URI versioning: /api/v1/users</li>
+            <li>Helps manage breaking changes over time</li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Use Query Parameters for Filtering, Sorting, and Pagination</div>
+        <ul class="collapsible-list">
+            <li>Example: /products?category=books&sort=price_asc&page=2&limit=20</li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Secure Your API</div>
+        <ul class="collapsible-list">
+            <li>Use HTTPS</li>
+            <li>Implement authentication (e.g., JWT, OAuth2)</li>
+            <li>Validate and sanitize inputs to prevent injection attacks</li>
+            <li>Rate limit to prevent abuse</li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Request & Response Format</div>
+        <ul class="collapsible-list">
+            <li>Use JSON as the standard format</li>
+            <li>Include metadata (e.g., pagination info) in responses</li>
+            <li>Use consistent field naming (camelCase or snake_case)</li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Documentation and Testing</div>
+        <ul class="collapsible-list">
+            <li>Use tools like Swagger/OpenAPI for documentation</li>
+            <li>Provide examples and test endpoints</li>
+            <li>Ensure your API is covered with automated tests</li>
+        </ul>
+    </li>
+
+</ol>
+
+<h2>Examples</h2>
+
+<table class="table-wide">
+    <thead>
+        <tr>
+            <th>HTTP Method</th>
+            <th>API</th>
+            <th>Result</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>GET</td>
+            <td>/api/v1/admin/software/isos</td>
+            <td>List all software ISO Images and their details</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/api/v1/admin/software/isos</td>
+            <td>Create a new ISO image</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/api/v1/admin/software/isos/{id}</td>
+            <td>Get details of a specific ISO image</td>
+        </tr>
+        <tr>
+            <td>PUT</td>
+            <td>/api/v1/admin/software/isos/{id}</td>
+            <td>Update details of a specific ISO image</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/api/v1/admin/software/isos/{id}</td>
+            <td>Deletes a specific ISO image</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/api/v1/admin/software/isos/downloads</td>
+            <td>List all download histories for all ISO images*</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/api/v1/admin/software/isos/{id}/downloads</td>
+            <td>List specific ISO download history**</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/api/v1/software/isos/{id}/file</td>
+            <td>Download a specific ISO image**</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+    * While <code class="code-block">/isos/downloads</code> isn't a textbook sub-resource, it's a reasonable compromise if:
+</p>
+<ul>
+    <li>You want to make the scope obvious</li>
+    <li>You don't support downloads for other resource types</li>
+    <li>You're not exposing a global /downloads endpoint</li>
+</ul>
+<p>
+    If you want to keep RESTful structure and clarity, consider:<br>
+    <code class="code-block">GET /downloads?resource=iso</code>
+</p>
+
+<p>
+    ** This structure is more idiomatic in REST because it treats <code class="code-block">file / downloads</code>
+    as a <b>sub-resource</b> of the ISO identified by <code class="code-block">{id}</code>.
+    You're essentially saying: <i>"Give me the file associated with this specific ISO."</i>
+</p>
+
+<h2>What is an Idempotent API?</h2>
+<p>
+    An idempotent HTTP method is a method that can be invoked many times without different outcomes.
+    It should not matter if the method has been called only once, or ten times over — the result should always be the same.
+</p>
+
+<h2>Idempotency with HTTP Methods</h2>
+<p>
+    If we follow REST principles, we automatically get idempotent APIs for: GET, PUT, DELETE, HEAD, OPTIONS, and TRACE.
+    Only POST and PATCH are not idempotent.
+</p>
+
+<ul>
+    <li>POST and PATCH are <b>NOT</b> idempotent</li>
+    <li>GET, PUT, DELETE, HEAD, OPTIONS and TRACE are idempotent</li>
+</ul>
+
+<table class="table-narrow">
+    <thead>
+        <tr>
+            <th>HTTP Method</th>
+            <th>Idempotent</th>
+            <th>Safe</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>GET</td>
+            <td style="color: green;">✔️</td>
+            <td style="color: green;">✔️</td>
+        </tr>
+        <tr>
+            <td>HEAD</td>
+            <td style="color: green;">✔️</td>
+            <td style="color: green;">✔️</td>
+        </tr>
+        <tr>
+            <td>PUT</td>
+            <td style="color: green;">✔️</td>
+            <td style="color: red;">❌</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td style="color: green;">✔️</td>
+            <td style="color: red;">❌</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td style="color: red;">❌</td>
+            <td style="color: red;">❌</td>
+        </tr>
+        <tr>
+            <td>PATCH</td>
+            <td style="color: red;">❌</td>
+            <td style="color: red;">❌</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>RESTful vs RPC Tradeoff</h2>
+
+<h3>Restore/Backup Endpoints: RPC-style Triggers</h3>
+
+<code class="code-block">
+    POST /devices/{device_name}/restore<br>
+    POST /devices/{device_name}/backup<br>
+</code>
+
+<ul>
+    <li>These endpoints initiate an action — they don't return a resource, they trigger behavior.</li>
+    <li>The payload contains instructions <code class="code-block">(backupName, metadata)</code> for what the device should do.</li>
+    <li>There's no persistent resource created, so you're not modeling a new entity — just invoking a command.</li>
+    <li>This is RPC over HTTP, and it's valid when the operation is transient and immediate.</li>
+</ul>
+
+</main>
+</body>
 </html>

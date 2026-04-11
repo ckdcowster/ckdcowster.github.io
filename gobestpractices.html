@@ -3,151 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <title>Go Best Practices</title>
-    <style>
-        body {
-            font-family: Verdana, sans-serif;
-            font-size: 12pt;
-            line-height: 1.5;
-            margin: 40px;
-        }
-        nav#toc {
-            margin-bottom: 2em;
-        }
-        nav#toc h2 {
-            margin-bottom: 0.5em;
-        }
-        section {
-            margin-bottom: 2em;
-        }
-        section h2 {
-            margin-bottom: 0.4em;
-        }
-        code {
-            font-size: 11pt;
-            background-color: #eee;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
-        pre {
-            background-color: #eee;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 11pt;
-        }
-    </style>
+    <link rel="stylesheet" href="global.css">
+    <script src="global.js" defer></script>
 </head>
 
 <body>
 
+<button class="theme-toggle">Toggle Theme</button>
+
+<aside class="sidebar">
+    <h2>Best Practices</h2>
+    <a href="gobestpractices.html">Go Best Practices</a>
+    <a href="designthoughts.html">Design Thoughts</a>
+    <a href="restbestpractices.html">REST Best Practices</a>
+</aside>
+
+<main>
+
 <h1>Go Best Practices</h1>
 
-<nav id="toc">
-    <h2>Contents</h2>
-    <ul>
-        <li><a href="#functions">Functions</a></li>
-        <li><a href="#comma-ok">Comma ok / error idiom</a></li>
-        <li><a href="#if-else">If / Else</a></li>
-        <li><a href="#constants">Constants</a></li>
-        <li><a href="#sets">Sets</a></li>
-        <li><a href="#strings">Strings</a></li>
-        <li><a href="#pointers">Pointers</a></li>
-        <li><a href="#slices">Slices</a></li>
-        <li><a href="#switch">Switch</a></li>
-        <li><a href="#var-decl">Variable Declaration</a></li>
-        <li><a href="#booleans">Booleans & Complex Logic</a></li>
-    </ul>
-</nav>
+<ol>
 
-<section id="functions">
-    <h2>Functions</h2>
-    <ul>
-        <li>Validate inputs.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Functions</div>
+        <ul class="collapsible-list">
+            <li>Validate inputs.</li>
+        </ul>
+    </li>
 
-<section id="comma-ok">
-    <h2>Comma ok / error idiom</h2>
-    <ul>
-        <li>Prefer to return error in functions, and check for <b>NOT</b> ok and deal with the error.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Comma ok / error idiom</div>
+        <ul class="collapsible-list">
+            <li>Prefer returning an error and checking for NOT ok.</li>
+        </ul>
+    </li>
 
-<section id="if-else">
-    <h2>If / Else</h2>
-    <ul>
-        <li>It's idiomatic to return early and avoid nesting.</li>
-        <li>If a block ends with return, continue, or break, you don't need an else.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">If / Else</div>
+        <ul class="collapsible-list">
+            <li>Return early to avoid nesting.</li>
+            <li>If a block ends with return/continue/break, you don’t need an else.</li>
+        </ul>
+    </li>
 
-<section id="constants">
-    <h2>Constants</h2>
-    <ul>
-        <li>Put constants into global space.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Constants</div>
+        <ul class="collapsible-list">
+            <li>Put constants at package level.</li>
+        </ul>
+    </li>
 
-<section id="sets">
-    <h2>Sets</h2>
-    <ul>
-        <li>Use anonymous structs for sets: <code>map[int]struct{}</code>.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Sets</div>
+        <ul class="collapsible-list">
+            <li>Use <code class="code-block">map[int]struct{}</code> for sets.</li>
+        </ul>
+    </li>
 
-<section id="strings">
-    <h2>Strings</h2>
-    <ul>
-        <li>Use strings.Builder to create complex strings (more efficient).</li>
-        <li>Use strings.Fields to remove all white space including leading & trailing.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Strings</div>
+        <ul class="collapsible-list">
+            <li>Use strings.Builder for efficient concatenation.</li>
+            <li>Use strings.Fields to remove whitespace.</li>
+        </ul>
+    </li>
 
-<section id="pointers">
-    <h2>Pointers</h2>
-    <ul>
-        <li>You need to modify the caller's data.</li>
-        <li>The value is large or expensive to copy.</li>
-        <li>You're building reference-based structures (trees, graphs, linked lists, caches).</li>
-        <li><b>Avoid:</b> Creating a value and then taking its address inside loops.</li>
-        <li><b>Prefer:</b> Allocating the pointer directly, e.g. <code>child := &Node{ID: r.ID}</code></li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Pointers</div>
+        <ul class="collapsible-list">
+            <li>Use when modifying caller data.</li>
+            <li>Use when values are large or expensive to copy.</li>
+            <li>Use for reference-based structures (trees, graphs, lists).</li>
+            <li>Avoid taking addresses of loop variables.</li>
+            <li>Prefer allocating pointers directly.</li>
+        </ul>
+    </li>
 
-<section id="slices">
-    <h2>Slices</h2>
-    <ul>
-        <li>Prefer append when the final size is unknown or grows dynamically.</li>
-        <li>If the final size is known, use make with a length or capacity hint.</li>
-        <li>Prefer indexing when the slice length is known and fixed.</li>
-        <li><code>copy()</code> copies up to the length of the destination slice, not its capacity.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Slices</div>
+        <ul class="collapsible-list">
+            <li>Use append when size is unknown.</li>
+            <li>Use make() when size is known.</li>
+            <li>Prefer indexing when length is fixed.</li>
+            <li><code class="code-block">copy()</code> copies up to destination length.</li>
+        </ul>
+    </li>
 
-<section id="switch">
-    <h2>Switch</h2>
-    <ul>
-        <li>Prefer <code>map[rune]</code> for efficient lookup and updates.</li>
-        <li>Use switch for state machines to replace if/else chains.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Switch</div>
+        <ul class="collapsible-list">
+            <li>Use <code class="code-block">map[rune]</code> for efficient lookup.</li>
+            <li>Use switch for state machines.</li>
+        </ul>
+    </li>
 
-<section id="var-decl">
-    <h2>Variable Declaration</h2>
-    <ul>
-        <li>Use <code>:=</code> when declaring and initializing a variable in local scope.</li>
-        <li>Use <code>var</code> when declaring without initialization or when specifying type explicitly.</li>
-        <li>Group related variables inside <code>var ( )</code>.</li>
-    </ul>
-</section>
+    <li>
+        <div class="list-header">Variable Declaration</div>
+        <ul class="collapsible-list">
+            <li>Use <code class="code-block">:=</code> for local inferred declarations.</li>
+            <li>Use <code class="code-block">var</code> for explicit types or zero values.</li>
+            <li>Group related variables in <code class="code-block">var ( )</code>.</li>
+        </ul>
+    </li>
 
-<section id="booleans">
-    <h2>Booleans Are Too Ambiguous for Complex Logic</h2>
-    <ul>
-        <li>Use named constants instead of boolean values.</li>
-        <li>Consider enums or structs for more expressive logic.</li>
-    </ul>
-
-<pre>
+    <li>
+        <div class="list-header">Booleans Are Too Ambiguous</div>
+        <ul class="collapsible-list">
+            <li>Use enums or named constants instead of booleans.</li>
+        </ul>
+        <pre><code class="code-block">
 type ActionResult int
 const (
     ActionContinue ActionResult = iota
@@ -155,8 +119,11 @@ const (
     ActionInvalid
     ActionError
 )
-</pre>
-</section>
+        </code></pre>
+    </li>
 
+</ol>
+
+</main>
 </body>
 </html>
