@@ -1,82 +1,165 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html>
-    <head><title>Design Thoughts</title></head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Design Thoughts</title>
     <style>
         body {
             font-family: Verdana, sans-serif;
-            font-size:      12pt;
-       }
+            font-size: 12pt;
+            line-height: 1.5;
+            margin: 40px;
+        }
+        nav#toc {
+            margin-bottom: 2em;
+        }
+        nav#toc h2 {
+            margin-bottom: 0.5em;
+        }
+        section {
+            margin-bottom: 2em;
+        }
+        section h2 {
+            margin-bottom: 0.4em;
+        }
+        ul li {
+            margin-bottom: 0.4em;
+        }
     </style>
-    <body>
-        <h1 id="design-thoughts">Design Thoughts</h1>
-        <ul>
-            <li><b>DRY (Don't Repeat Yourself)</b><br>
-                Avoid code duplication.<br>
-                Reuse code through functions, classes, or modules to improve maintainability.<br>
-                <br>
-            </li>
-            <li><b>KISS (Keep It Simple, Stupid)</b><br>
-                Design systems as simply as possible.<br>
-                Avoid unnecessary complexity.<br>
-                <br>
-            </li>
-            <li><b>Easy to understand</b><br>
-                Clear names for everything.<br>
-                Comments are clear and useful, and mostly explain why instead of what.<br>
-                <br>
-            </li>
-            <li><b>Separation of Concerns</b><br>
-                Divide a program into distinct sections, each addressing a separate concern or functionality.<br>
-                <br>
-            </li>
-            <li><b>High Cohesion and Low Coupling</b><br>
-                High Cohesion: Related functions are kept together.<br>
-                Low Coupling: Components are independent and changes in one don't heavily affect others.<br>
-                <br>
-            </li>
-            <li><b>Package-Oriented Design</b><br>
-                Organize code into "small", cohesive packages.<br>
-                Each package should have a clear purpose and minimal public API.<br>
-                <br>
-            </li>
-            <li><b>Minimalism in Public APIs</b><br>
-                Define small, focused interfaces.<br>
-                Keep exported functions, types, and variables to a minimum.<br>
-                Use lowercase names for Unexported identifiers.<br>
-                <br>
-            </li>
-            <li><b>Encapsulation</b><br>
-                Hide internal state and require all interaction to be performed through an object's methods.<br>
-                <br>
-            </li>
-            <li><b>Composition Over Inheritance</b><br>
-                Favour composing objects with desired behaviour over inheriting from a base class.<br>
-                <br>
-            </li>
-            <li><b>Dependency Injection</b><br>
-                An object's dependencies are provided from the outside rather than the object creating them itself.<br>
-                This makes the code more flexible, testable, and easier to maintain.<br>
-                <br>
-            </li>
-            <li><b>Avoid Global State</b><br>
-                Prefer passing dependencies explicitly rather than relying on global variables.<br>
-                <br>
-            </li>
-            <li><b>Idiomatic Error Handling</b><br>
-                Handle error first.<br>
-                <br>
-            </li>
-            <li><b>Narrow scope</b><br>
-                Compilers can more easily optimize memory and register usage when variable lifetimes are short and well-defined.<br>
-                Developers don't have to keep track of a variable across a large block of code.<br>
-                Reduces the risk of variable shadowing and makes it easier to detect.<br>
-                <br>
-            </li>
-            <li><b>Efficient code</b><br>
-                Avoid making multiple (temporary) copies of variables.<br>
-                Prefer to pass by reference/pointer for large data.<br>
-                <br>
-            </li>
-        </ul>
-    </body>
+</head>
+
+<body>
+
+<h1>Design Thoughts</h1>
+
+<nav id="toc">
+    <h2>Contents</h2>
+    <ul>
+        <li><a href="#dry">DRY</a></li>
+        <li><a href="#kiss">KISS</a></li>
+        <li><a href="#understandable">Easy to Understand</a></li>
+        <li><a href="#soc">Separation of Concerns</a></li>
+        <li><a href="#cohesion-coupling">High Cohesion & Low Coupling</a></li>
+        <li><a href="#packages">Package-Oriented Design</a></li>
+        <li><a href="#minimal-api">Minimal Public APIs</a></li>
+        <li><a href="#encapsulation">Encapsulation</a></li>
+        <li><a href="#composition">Composition Over Inheritance</a></li>
+        <li><a href="#di">Dependency Injection</a></li>
+        <li><a href="#global-state">Avoid Global State</a></li>
+        <li><a href="#errors">Idiomatic Error Handling</a></li>
+        <li><a href="#scope">Narrow Scope</a></li>
+        <li><a href="#efficient">Efficient Code</a></li>
+    </ul>
+</nav>
+
+<section id="dry">
+    <h2>DRY (Don't Repeat Yourself)</h2>
+    <ul>
+        <li>Avoid code duplication.</li>
+        <li>Reuse code through functions, classes, or modules to improve maintainability.</li>
+    </ul>
+</section>
+
+<section id="kiss">
+    <h2>KISS (Keep It Simple, Stupid)</h2>
+    <ul>
+        <li>Design systems as simply as possible.</li>
+        <li>Avoid unnecessary complexity.</li>
+    </ul>
+</section>
+
+<section id="understandable">
+    <h2>Easy to Understand</h2>
+    <ul>
+        <li>Clear names for everything.</li>
+        <li>Comments explain why, not what.</li>
+    </ul>
+</section>
+
+<section id="soc">
+    <h2>Separation of Concerns</h2>
+    <ul>
+        <li>Divide a program into distinct sections, each addressing a separate concern or functionality.</li>
+    </ul>
+</section>
+
+<section id="cohesion-coupling">
+    <h2>High Cohesion and Low Coupling</h2>
+    <ul>
+        <li>High Cohesion: Related functions are kept together.</li>
+        <li>Low Coupling: Components are independent and changes in one don't heavily affect others.</li>
+    </ul>
+</section>
+
+<section id="packages">
+    <h2>Package-Oriented Design</h2>
+    <ul>
+        <li>Organize code into small, cohesive packages.</li>
+        <li>Each package should have a clear purpose and minimal public API.</li>
+    </ul>
+</section>
+
+<section id="minimal-api">
+    <h2>Minimalism in Public APIs</h2>
+    <ul>
+        <li>Define small, focused interfaces.</li>
+        <li>Keep exported functions, types, and variables to a minimum.</li>
+        <li>Use lowercase names for unexported identifiers.</li>
+    </ul>
+</section>
+
+<section id="encapsulation">
+    <h2>Encapsulation</h2>
+    <ul>
+        <li>Hide internal state and require interaction through methods.</li>
+    </ul>
+</section>
+
+<section id="composition">
+    <h2>Composition Over Inheritance</h2>
+    <ul>
+        <li>Favour composing objects with desired behaviour over inheriting from a base class.</li>
+    </ul>
+</section>
+
+<section id="di">
+    <h2>Dependency Injection</h2>
+    <ul>
+        <li>Dependencies are provided externally rather than created internally.</li>
+        <li>Improves flexibility, testability, and maintainability.</li>
+    </ul>
+</section>
+
+<section id="global-state">
+    <h2>Avoid Global State</h2>
+    <ul>
+        <li>Prefer passing dependencies explicitly rather than relying on global variables.</li>
+    </ul>
+</section>
+
+<section id="errors">
+    <h2>Idiomatic Error Handling</h2>
+    <ul>
+        <li>Handle error first.</li>
+    </ul>
+</section>
+
+<section id="scope">
+    <h2>Narrow Scope</h2>
+    <ul>
+        <li>Short variable lifetimes improve optimization.</li>
+        <li>Reduces cognitive load for developers.</li>
+        <li>Reduces risk of shadowing.</li>
+    </ul>
+</section>
+
+<section id="efficient">
+    <h2>Efficient Code</h2>
+    <ul>
+        <li>Avoid making multiple temporary copies of variables.</li>
+        <li>Prefer passing by reference/pointer for large data.</li>
+    </ul>
+</section>
+
+</body>
 </html>
