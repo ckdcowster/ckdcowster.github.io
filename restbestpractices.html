@@ -11,13 +11,6 @@
 
 <button class="theme-toggle">Toggle Theme</button>
 
-<aside class="sidebar">
-    <h2>Best Practices</h2>
-    <a href="gobestpractices.html">Go Best Practices</a>
-    <a href="designthoughts.html">Design Thoughts</a>
-    <a href="restbestpractices.html">REST Best Practices</a>
-</aside>
-
 <main>
 
 <h1 id="rest-best-practices">REST Best Practices</h1>
@@ -129,46 +122,14 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>GET</td>
-            <td>/api/v1/admin/software/isos</td>
-            <td>List all software ISO Images and their details</td>
-        </tr>
-        <tr>
-            <td>POST</td>
-            <td>/api/v1/admin/software/isos</td>
-            <td>Create a new ISO image</td>
-        </tr>
-        <tr>
-            <td>GET</td>
-            <td>/api/v1/admin/software/isos/{id}</td>
-            <td>Get details of a specific ISO image</td>
-        </tr>
-        <tr>
-            <td>PUT</td>
-            <td>/api/v1/admin/software/isos/{id}</td>
-            <td>Update details of a specific ISO image</td>
-        </tr>
-        <tr>
-            <td>DELETE</td>
-            <td>/api/v1/admin/software/isos/{id}</td>
-            <td>Deletes a specific ISO image</td>
-        </tr>
-        <tr>
-            <td>GET</td>
-            <td>/api/v1/admin/software/isos/downloads</td>
-            <td>List all download histories for all ISO images*</td>
-        </tr>
-        <tr>
-            <td>GET</td>
-            <td>/api/v1/admin/software/isos/{id}/downloads</td>
-            <td>List specific ISO download history**</td>
-        </tr>
-        <tr>
-            <td>GET</td>
-            <td>/api/v1/software/isos/{id}/file</td>
-            <td>Download a specific ISO image**</td>
-        </tr>
+        <tr><td>GET</td><td>/api/v1/admin/software/isos</td><td>List all software ISO Images and their details</td></tr>
+        <tr><td>POST</td><td>/api/v1/admin/software/isos</td><td>Create a new ISO image</td></tr>
+        <tr><td>GET</td><td>/api/v1/admin/software/isos/{id}</td><td>Get details of a specific ISO image</td></tr>
+        <tr><td>PUT</td><td>/api/v1/admin/software/isos/{id}</td><td>Update details of a specific ISO image</td></tr>
+        <tr><td>DELETE</td><td>/api/v1/admin/software/isos/{id}</td><td>Deletes a specific ISO image</td></tr>
+        <tr><td>GET</td><td>/api/v1/admin/software/isos/downloads</td><td>List all download histories for all ISO images*</td></tr>
+        <tr><td>GET</td><td>/api/v1/admin/software/isos/{id}/downloads</td><td>List specific ISO download history**</td></tr>
+        <tr><td>GET</td><td>/api/v1/software/isos/{id}/file</td><td>Download a specific ISO image**</td></tr>
     </tbody>
 </table>
 
@@ -217,36 +178,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>GET</td>
-            <td style="color: green;">✔️</td>
-            <td style="color: green;">✔️</td>
-        </tr>
-        <tr>
-            <td>HEAD</td>
-            <td style="color: green;">✔️</td>
-            <td style="color: green;">✔️</td>
-        </tr>
-        <tr>
-            <td>PUT</td>
-            <td style="color: green;">✔️</td>
-            <td style="color: red;">❌</td>
-        </tr>
-        <tr>
-            <td>DELETE</td>
-            <td style="color: green;">✔️</td>
-            <td style="color: red;">❌</td>
-        </tr>
-        <tr>
-            <td>POST</td>
-            <td style="color: red;">❌</td>
-            <td style="color: red;">❌</td>
-        </tr>
-        <tr>
-            <td>PATCH</td>
-            <td style="color: red;">❌</td>
-            <td style="color: red;">❌</td>
-        </tr>
+        <tr><td>GET</td><td style="color: green;">✔️</td><td style="color: green;">✔️</td></tr>
+        <tr><td>HEAD</td><td style="color: green;">✔️</td><td style="color: green;">✔️</td></tr>
+        <tr><td>PUT</td><td style="color: green;">✔️</td><td style="color: red;">❌</td></tr>
+        <tr><td>DELETE</td><td style="color: green;">✔️</td><td style="color: red;">❌</td></tr>
+        <tr><td>POST</td><td style="color: red;">❌</td><td style="color: red;">❌</td></tr>
+        <tr><td>PATCH</td><td style="color: red;">❌</td><td style="color: red;">❌</td></tr>
     </tbody>
 </table>
 

@@ -7,7 +7,6 @@
     --accent: #0078d4;
     --border: #cccccc;
     --code-bg: #f4f4f4;
-    --sidebar-bg: #f7f7f7;
 }
 
 [data-theme="dark"] {
@@ -16,7 +15,6 @@
     --accent: #4aa3ff;
     --border: #444444;
     --code-bg: #2a2a2a;
-    --sidebar-bg: #252525;
 }
 
 /* ================================
@@ -29,46 +27,12 @@ body {
     font-size: 12pt;
     background: var(--bg);
     color: var(--text);
-    display: flex;
 }
 
-/* ================================
-   SIDEBAR
-================================ */
-.sidebar {
-    width: 260px;
-    background: var(--sidebar-bg);
-    border-right: 1px solid var(--border);
-    height: 100vh;
-    padding: 20px;
-    position: fixed;
-    overflow-y: auto;
-}
-
-.sidebar h2 {
-    font-size: 18px;
-    margin-bottom: 12px;
-}
-
-.sidebar a {
-    display: block;
-    padding: 8px 0;
-    color: var(--text);
-    text-decoration: none;
-}
-
-.sidebar a.active {
-    font-weight: bold;
-    color: var(--accent);
-}
-
-/* ================================
-   MAIN CONTENT
-================================ */
 main {
-    margin-left: 260px;
-    padding: 40px;
     max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
 /* ================================
@@ -109,7 +73,7 @@ h2 {
 }
 
 .collapsible-list.open {
-    max-height: 800px; /* enough for long lists */
+    max-height: 800px;
 }
 
 /* ================================
