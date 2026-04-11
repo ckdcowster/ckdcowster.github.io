@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-    <head><title>Go Best Practices</title></head>
+    <head><title> Best Practices</title></head>
     <style>
         body {
             font-family: Verdana, sans-serif;
@@ -29,7 +29,7 @@
                 <br>
             </li>
             <li><b>Sets</b><br>
-                Use anonymous structs for sets: <code>map[int]struct{}</code>.<br>
+                Use anonymous structs for sets: <code style="font-size:11pt; background-color:lightgray">map[int]struct{}</code>.<br>
                 <br>
             </li>
             <li><b>Strings</b><br>
@@ -65,6 +65,7 @@
                         </ul>
                     </li>
                 </ul>
+                <br>
             </li>
             <li><b>Variable Declaration</b>
                 <ul>
@@ -82,8 +83,25 @@
                             <li>You're using a zero value intentionally.</li>
                         </ul>
                     </li>
+                    <li>Group variables that relate to the same subsystem, error category, or configuration within var ( )</li>
                 </ul>
-                <b>Group variables that relate to the same subsystem, error category, or configuration within var ( )</b>
+                <br>
+            </li>
+            <li><b>Booleans Are Too Ambiguous for Complex Logic</b>
+                <ul>
+                    Use named constants instead of boolean values. <br \>
+                    Consider using enums or structs for more expressive logic.
+                    <pre>
+type ActionResult int
+const (
+    ActionContinue ActionResult = iota
+    ActionFinished
+    ActionInvalid
+    ActionError
+)
+                    </pre>
+                </ul>
+                <br>
             </li>
         </ul>
     </body>
