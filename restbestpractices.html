@@ -11,6 +11,14 @@
 
 <button class="theme-toggle">Toggle Theme</button>
 
+<aside class="sidebar">
+    <h2>Best Practices</h2>
+    <a href="index.html">🏠 Home</a>
+    <a href="gobestpractices.html">🐹 Go Best Practices</a>
+    <a href="designthoughts.html">🧠 Design Thoughts</a>
+    <a href="restbestpractices.html">🌐 REST Best Practices</a>
+</aside>
+
 <main>
 
 <h1 id="rest-best-practices">REST Best Practices</h1>
@@ -19,6 +27,10 @@
     When designing and working with RESTful APIs, following best practices ensures your endpoints are intuitive,
     scalable, secure, and maintainable. Here are some key principles and good practices:
 </p>
+
+<div class="collapse-controls">
+    <button id="toggle-all">Expand All</button>
+</div>
 
 <ol>
 
@@ -142,8 +154,7 @@
     <li>You're not exposing a global /downloads endpoint</li>
 </ul>
 <p>
-    If you want to keep RESTful structure and clarity, consider:<br>
-    <code class="code-block">GET /downloads?resource=iso</code>
+    If you want to keep RESTful structure and clarity, consider: <code class="code-block">GET /downloads?resource=iso</code>
 </p>
 
 <p>
@@ -191,10 +202,8 @@
 
 <h3>Restore/Backup Endpoints: RPC-style Triggers</h3>
 
-<code class="code-block">
-    POST /devices/{device_name}/restore<br>
-    POST /devices/{device_name}/backup<br>
-</code>
+<code class="code-block">POST /devices/{device_name}/restore<br /></code>
+<code class="code-block">POST /devices/{device_name}/backup<br /></code>
 
 <ul>
     <li>These endpoints initiate an action — they don't return a resource, they trigger behavior.</li>

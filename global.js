@@ -33,4 +33,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const saved = localStorage.getItem("theme") || "light";
     document.documentElement.setAttribute("data-theme", saved);
+
+    /* ================================
+       SIDEBAR ACTIVE LINK
+    ================================= */
+    const path = window.location.pathname.split("/").pop();
+    document.querySelectorAll(".sidebar a").forEach(a => {
+        if (a.getAttribute("href") === path) {
+            a.classList.add("active");
+        }
+    });
 });
+
+/* ================================
+   SINGLE TOGGLE: EXPAND / COLLAPSE ALL
+================================ */
+const toggleAllBtn = document.getElementById("toggle-all");
+
+if (toggleAllBtn) {
+    toggleAllBtn.addEventListener("click", () => {
+        const lists = document.querySelectorAll(".collapsible-list");
+        const icons = document.querySelectorAll(".list-header .icon");
+
+        // Determine current state
+        const allOpen = [...lists].every(list => list.classList.contains("open"));
+
+        if (allOpen) {
+            // Collapse all
+            lists.forEach(list => list.classList.remove("open"));
+            icons.forEach(icon => icon.textContent = "▸");
+            toggleAllBtn.textContent = "Expand All";
+        } else {
+            // Expand all
+            lists.forEach(list => list.classList.add("open"));
+            icons.forEach(icon => icon.textContent = "▾");
+            toggleAllBtn.textContent = "Collapse All";
+        }
+    });
+}
