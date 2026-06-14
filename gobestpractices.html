@@ -109,6 +109,19 @@ document.addEventListener("DOMContentLoaded", () => {
     </li>
 
     <li>
+        <div class="list-header">Dense vs Sparse Enum Data</div>
+        <ul class="collapsible-list">
+            <li><strong>Dense data → use a slice</strong><br>
+                When every <code>iota</code>-based enum value has a corresponding entry, a slice indexed by the enum is the most idiomatic, fastest, and simplest representation.
+            </li>
+
+            <li><strong>Sparse data → use a map</strong><br>
+                When only some enum values have associated data, use a map. This avoids placeholder empty values and expresses intent clearly.
+            </li>
+        </ul>
+    </li>
+
+    <li>
         <div class="list-header">Switch</div>
         <ul class="collapsible-list">
             <li>Use <code class="code-block">map[rune]</code> for efficient lookup.</li>
