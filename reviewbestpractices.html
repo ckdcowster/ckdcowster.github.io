@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Review Best Practices</title>
+    <link rel="stylesheet" href="global.css">
+    <script src="global.js" defer></script>
+</head>
+
+<body>
+
+<button class="theme-toggle">Toggle Theme</button>
+
+<aside class="sidebar">
+    <h2>Best Practices</h2>
+    <a href="index.html">🏠 Home</a>
+    <a href="gobestpractices.html">🐹 Go Best Practices</a>
+    <a href="designthoughts.html">🧠 Design Thoughts</a>
+    <a href="restbestpractices.html">🌐 REST Best Practices</a>
+    <a href="reviewbestpractices.html" class="active">🔍 Review Best Practices</a>
+</aside>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.getElementById("toggle-all");
+    const allDetails = document.querySelectorAll("details");
+
+    let expanded = false;
+
+    toggleBtn.addEventListener("click", () => {
+        expanded = !expanded;
+
+        allDetails.forEach(d => d.open = expanded);
+
+        toggleBtn.textContent = expanded ? "Collapse All" : "Expand All";
+    });
+});
+</script>
+
+<main>
+    <h1 id="review-best-practices">Review Best Practices</h1>
+
+    <div class="collapse-controls">
+        <button id="toggle-all">Expand All</button>
+    </div>
+
+    <details>
+        <summary>When you don’t fully know the context</summary>
+        <ul>
+            <li>“What upstream assumptions does this rely on?”</li>
+            <li>“What downstream behaviour depends on this?”</li>
+            <li>“What breaks if this returns unexpected data?”</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>When you’re unsure about syntax or idioms</summary>
+        <ul>
+            <li>“Is this the clearest way to express the intent?”</li>
+            <li>“Would a more explicit version be easier to maintain?”</li>
+            <li>“Is this relying on a trick that future maintainers may not know?”</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>When you’re unsure whether the code is too complex</summary>
+        <ul>
+            <li>Nested conditionals &gt; 2 levels</li>
+            <li>Functions &gt; 40 lines</li>
+            <li>Classes doing more than one responsibility</li>
+            <li>Ask: “Can this be simplified or split into smaller units?”</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>Separation of Concerns</summary>
+        <p>Each part of the code should have one clear responsibility.</p>
+        <ul>
+            <li>Ask: “Can this be separated into clearer layers?”</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>When you’re unsure whether naming is good</summary>
+        <ul>
+            <li>If you can’t guess what the variable means without reading the code, the name is wrong.</li>
+            <li>Ask: “Can this name be more descriptive?”</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>When you’re unsure whether comments are useful</summary>
+        <ul>
+            <li>Use the Why, not What rule.</li>
+            <li>Ask: “Can you explain why this logic exists?”</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>Error Handling & Failure Behaviour</summary>
+        <ul>
+            <li>Does the code fail loudly?</li>
+            <li>Does it avoid silent fallback?</li>
+            <li>Are errors actionable?</li>
+            <li>Do error messages include context?</li>
+            <li>Are exceptions / error codes / return values used consistently?</li>
+            <li>Ask: “What happens in production if this fails?”</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>Input Validation</summary>
+        <ul>
+            <li>Ask: “What happens if the user provides invalid config?”</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>Concurrency Safety</summary>
+        <ul>
+            <li>Ask: “Is this concurrency safe?”</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>Style Consistency Across Languages</summary>
+        <ul>
+            <li>Ask: “Is this consistent with the rest of the codebase?”</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>When you’re unsure whether tests are good</summary>
+        <ul>
+            <li>Do tests verify one behaviour at a time?</li>
+            <li>Do they cover failures?</li>
+            <li>Do they cover edge cases?</li>
+            <li>Do they cover configuration variations?</li>
+            <li>Do they use realistic inputs?</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>When you’re unsure whether to approve</summary>
+        <ul>
+            <li>If you understand the intent, the consequences, and the tests, you can approve.</li>
+            <li>If any are unclear: ask for clarification before approving.</li>
+        </ul>
+    </details>
+
+</main>
+
+</body>
+</html>

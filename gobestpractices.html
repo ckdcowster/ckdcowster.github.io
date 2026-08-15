@@ -17,6 +17,7 @@
     <a href="gobestpractices.html">🐹 Go Best Practices</a>
     <a href="designthoughts.html">🧠 Design Thoughts</a>
     <a href="restbestpractices.html">🌐 REST Best Practices</a>
+    <a href="reviewbestpractices.html">🔍 Review Best Practices</a>
 </aside>
 
 <script>
@@ -143,9 +144,10 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="list-header">Booleans Are Too Ambiguous</div>
         <ul class="collapsible-list">
             <li>Use enums or named constants instead of booleans.
-                <pre><code class="code-block">type ActionResult int
+                <pre><code class="code-block">type ActionResult uint8
 const (
-    ActionContinue ActionResult = iota
+    ActionUnitialised ActionResult = iota
+    ActionContinue
     ActionFinished
     ActionInvalid
     ActionError
