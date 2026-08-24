@@ -158,6 +158,26 @@ const (
         </ul>
     </li>
 
+    <li>
+        <div class="list-header">Extract Helper Functions When They Clarify Intent</div>
+        <ul class="collapsible-list">
+            <p>
+                Small helper functions are valuable when they express a clear idea that would otherwise clutter the main algorithm.<br \>
+                A helper should answer a <strong>question</strong> or perform a <strong>named action</strong>,
+                making the core logic easier to read and reason about.
+            </p>
+            <ul>
+                <li>Use a helper when the logic represents a distinct decision or check.</li>
+                <li>Extract logic that becomes clearer when named (e.g., <code class="code-block">fail</code>, <code class="code-block">isComplete</code>, <code class="code-block">prepend</code>).</li>
+                <li>Reduce branching noise and improve readability inside loops.</li>
+                <li>Avoid helpers that hide trivial operations or add unnecessary abstraction.</li>
+            </ul>
+            <p>
+                <strong>Rule of thumb:</strong> If the logic answers a question, extract it.
+                If naming it makes the algorithm clearer, extract it.
+            </p>
+        </ul>
+    </li>
 </ol>
 
 </main>
