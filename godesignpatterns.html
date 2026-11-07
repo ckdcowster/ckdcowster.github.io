@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Go Design Patterns</title>
+    <link rel="stylesheet" href="global.css">
+    <script src="global.js" defer></script>
+</head>
+
+<body>
+
+<button class="theme-toggle">Toggle Theme</button>
+
+<aside class="sidebar">
+    <h2>Best Practices</h2>
+    <a href="index.html">🏠 Home</a>
+    <a href="gobestpractices.html">🐹 Go Best Practices</a>
+    <a href="godesignpatterns.html">🧩 Go Design Patterns</a>
+    <a href="designthoughts.html">🧠 Design Thoughts</a>
+    <a href="restbestpractices.html">🌐 REST Best Practices</a>
+    <a href="reviewbestpractices.html">🔍 Review Best Practices</a>
+</aside>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".collapsible-list").forEach(list => {
+        list.classList.add("open");
+    });
+    document.querySelectorAll(".list-header .icon").forEach(icon => {
+        icon.textContent = "▾";
+    });
+
+    const toggleBtn = document.getElementById("toggle-all");
+    if (toggleBtn) toggleBtn.textContent = "Collapse All";
+});
+</script>
+
+<main>
+
+<h1>Go Design Patterns</h1>
+
+<div class="collapse-controls">
+    <button id="toggle-all">Expand All</button>
+</div>
+
+<ol>
+    <li>
+        <div class="list-header">Constructor Functions Return Pointers</div>
+        <ul class="collapsible-list">
+            <li>When creating a new struct, Go constructors commonly return a pointer.</li>
+            <li class="code-example">
+                <pre><code class="code-block">type Cache struct {
+    data map[string]string
+}
+
+func NewCache() *Cache {
+    return &amp;Cache{
+        data: make(map[string]string),
+    }
+}</code></pre>
+            </li>
+            <li>Returning a pointer avoids copying large structs and lets methods modify the shared instance. It is a common convention, not a requirement for every constructor.</li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Initialize Maps with make</div>
+        <ul class="collapsible-list">
+            <li>A nil map can be read, but must be initialized before writing to it.</li>
+            <li class="code-example"><pre><code class="code-block">counts := make(map[string]int)
+counts["go"]++</code></pre></li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">WaitGroup Around Goroutines</div>
+        <ul class="collapsible-list">
+            <li>Use a <code class="code-block">sync.WaitGroup</code> to wait for a group of goroutines to finish.</li>
+            <li class="code-example"><pre><code class="code-block">var wg sync.WaitGroup
+wg.Add(1)
+
+go func() {
+    defer wg.Done()
+    doWork()
+}()
+
+wg.Wait()</code></pre></li>
+            <li>Call <code class="code-block">Add</code> before starting the goroutine, and pair each added count with a call to <code class="code-block">Done</code>.</li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Anonymous Function Wrapper for Goroutines</div>
+        <ul class="collapsible-list">
+            <li>Pass loop values as function arguments so each goroutine receives the value for its iteration.</li>
+            <li class="code-example"><pre><code class="code-block">for i := 0; i &lt; 5; i++ {
+    go func(id int) {
+        fmt.Println(id)
+    }(i)
+}</code></pre></li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Context for Cancellation</div>
+        <ul class="collapsible-list">
+            <li>Long-running operations should check their context and stop when it is cancelled.</li>
+            <li class="code-example"><pre><code class="code-block">func Run(ctx context.Context) {
+    for {
+        select {
+        case &lt;-ctx.Done():
+            return
+        default:
+            doWork()
+        }
+    }
+}</code></pre></li>
+            <li>Pass <code class="code-block">context.Context</code> down the call chain, for example: <code class="code-block">func Process(ctx context.Context)</code>.</li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Channel and Select</div>
+        <ul class="collapsible-list">
+            <li>Use <code class="code-block">select</code> to wait on channel operations and cancellation together.</li>
+            <li class="code-example"><pre><code class="code-block">select {
+case msg := &lt;-ch:
+    handle(msg)
+
+case &lt;-ctx.Done():
+    return
+}</code></pre></li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Defer for Cleanup</div>
+        <ul class="collapsible-list">
+            <li>Schedule cleanup with <code class="code-block">defer</code> immediately after successfully acquiring a resource.</li>
+            <li class="code-example"><pre><code class="code-block">file, err := os.Open(name)
+if err != nil {
+    return err
+}
+defer file.Close()</code></pre></li>
+            <li>The same pattern applies to unlocking a mutex and marking a WaitGroup task done: <code class="code-block">mu.Lock(); defer mu.Unlock()</code> and <code class="code-block">defer wg.Done()</code>.</li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Tuple Assignment</div>
+        <ul class="collapsible-list">
+            <li>Use multiple assignment for clear swaps and related updates.</li>
+            <li class="code-example"><pre><code class="code-block">a, b = b, a
+
+for b != 0 {
+    a, b = b, a%b
+}</code></pre></li>
+            <li>This is common in swaps, accumulator updates, and Euclid's GCD algorithm.</li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Error Early, Return Early</div>
+        <ul class="collapsible-list">
+            <li>Handle errors first and keep the successful path unindented.</li>
+            <li class="code-example"><pre><code class="code-block">if err != nil {
+    return err
+}
+
+doSomething()</code></pre></li>
+            <li>This is often called the happy-path style.</li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Avoid Accidental Shadowing</div>
+        <ul class="collapsible-list">
+            <li>Short declarations inside nested scopes can create a new variable instead of updating an outer one.</li>
+            <li class="code-example"><pre><code class="code-block">var res Result
+var err error
+
+for {
+    r, e := opener()
+    if e == nil {
+        res = r
+        break
+    }
+    err = e
+}</code></pre></li>
+            <li>Use distinct names when a short declaration could hide an outer variable.</li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Plain Slice as a Stack</div>
+        <ul class="collapsible-list">
+            <li>A slice is usually enough for stack behavior; create a dedicated type only when it adds meaningful behavior.</li>
+            <li class="code-example"><pre><code class="code-block">var stack []rune
+
+stack = append(stack, ch)
+top := stack[len(stack)-1]
+stack = stack[:len(stack)-1]</code></pre></li>
+            <li>When you can estimate the needed capacity, preallocate it: <code class="code-block">stack := make([]rune, 0, 100)</code>.</li>
+        </ul>
+    </li>
+
+    <li>
+        <div class="list-header">Range When Iterating Collections</div>
+        <ul class="collapsible-list">
+            <li>Use <code class="code-block">range</code> to iterate over values, or ignore values you do not need with <code class="code-block">_</code>.</li>
+            <li class="code-example"><pre><code class="code-block">for _, value := range values {
+    fmt.Println(value)
+}
+
+for idx := range values {
+    fmt.Println(idx)
+}</code></pre></li>
+        </ul>
+    </li>
+</ol>
+
+</main>
+</body>
+</html>

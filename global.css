@@ -114,6 +114,10 @@ h2 {
     max-height: 800px;
 }
 
+.collapsible-list > li.code-example {
+    list-style: none;
+}
+
 /* ================================
    TABLES
 ================================ */
