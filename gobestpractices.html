@@ -101,6 +101,17 @@ document.addEventListener("DOMContentLoaded", () => {
     </li>
 
     <li>
+        <div class="list-header">Copying Structs</div>
+        <ul class="collapsible-list">
+            <li>A struct assignment copies its fields; it does not deep-copy referenced data.</li>
+            <li><strong>Safe value-like fields:</strong> <code>int</code>, <code>float64</code>, <code>bool</code>, <code>string</code>, and structs made up only of value-like fields.</li>
+            <li><strong>Shared/reference-like fields:</strong> <code>[]T</code>, <code>map[K]V</code>, <code>chan T</code>, <code>func(...)</code>, and <code>*SomeType</code>. Copying one of these fields does not make an independent copy of what it refers to: both structs can still access the same data or resource. A change through one may therefore be visible through the other.</li>
+            <li>For slices, the slice header is copied, but the backing array may still be shared.</li>
+            <li><strong>Ask:</strong> If this struct is copied, is sharing this field what I want?</li>
+        </ul>
+    </li>
+
+    <li>
         <div class="list-header">Slices</div>
         <ul class="collapsible-list">
             <li>Use append when size is unknown.</li>
